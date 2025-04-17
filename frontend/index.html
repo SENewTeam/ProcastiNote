@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/jpeg" href="/hive.jpeg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Researchers&rsquo; Hive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        width: 100%;
+        font-family: "Rubik", sans-serif;
+      }
+      #root {
+        width: 100%;
+      }
+      :root {
+        --bs-blue: #0d6efd;
+        --bs-indigo: #6610f2;
+        --bs-purple: #6f42c1;
+        --bs-pink: #d63384;
+        --bs-red: #dc3545;
+        --bs-orange: #fd7e14;
+        --bs-yellow: #ffc107;
+        --bs-green: #198754;
+        --bs-teal: #20c997;
+        --bs-cyan: #0dcaf0;
+        --bs-white: #fff;
+        --bs-gray: #6c757d;
+        --bs-gray-dark: #343a40;
+        --bs-primary-rgb: 1,2,56 !important;
+        --bs-secondary: #6c757d;
+        --bs-success: #198754;
+        --bs-info: #0dcaf0;
+        --bs-warning: #ffc107;
+        --bs-danger: #dc3545;
+        --bs-light: #f8f9fa;
+        --bs-dark: #212529;
+        --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+          "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+          "Noto Color Emoji";
+        --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --bs-gradient: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.15),
+          rgba(255, 255, 255, 0)
+        );
+      }
+      .badge {
+        --bs-badge-color: #FCBA50 !important;
+      }
+
+      .card {
+        --bs-card-border-color: #011638 !important;
+      }
+
+      .pages {
+        background-color: rgb(232, 232, 232);
+      }
+
+      .card-description {
+        overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+           line-clamp: 3; 
+   -webkit-box-orient: vertical;
+      }
+
+      .btn-primary {
+         --bs-btn-color: #fff;
+         --bs-btn-bg: #011638 !important;
+         --bs-btn-border-color: #011638 !important;
+         --bs-btn-hover-color: #fff;
+         --bs-btn-hover-bg: #0b5ed7;
+         --bs-btn-hover-border-color: #0a58ca;
+         --bs-btn-focus-shadow-rgb: 49,132,253;
+         --bs-btn-active-color: #fff;
+         --bs-btn-active-bg: #0a58ca;
+         --bs-btn-active-border-color: #0a53be;
+         --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+         --bs-btn-disabled-color: #fff;
+         --bs-btn-disabled-bg: #0d6efd;
+         --bs-btn-disabled-border-color: #0d6efd;
+      }
+
+      .toastui-editor-defaultUI {
+        border: 1px solid #011638 !important;
+      }
+
+      .toastui-editor-defaultUI-toolbar, .toastui-editor-contents {
+        border-bottom: 1px solid #011638 !important;
+      }
+
+      .nav-tabs .nav-link {
+        color: slateblue !important;
+      }
+
+      .nav-link.active {
+        color: #011638 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

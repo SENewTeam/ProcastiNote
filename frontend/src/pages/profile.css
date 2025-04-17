@@ -1,0 +1,59 @@
+/* Profile header */
+.profile-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #011638;
+  color: #fcba50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.profile-username {
+  margin: 0;
+}
+
+/* Filter bar (unchanged) */
+.filter-section {
+  background: #f9f9f9;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
+/* Truncate abstract */
+.card-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Error text */
+.text-danger {
+  color: red;
+}
+
+/* react-select tweaks (optional) */
+.react-select-container {
+  width: 100%;
+}
+.react-select__control {
+  min-height: 38px;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.react-select__control--is-focused {
+  border-color: #007bff;
+  box-shadow: 0 0 0 1px #007bff;
+}
+.react-select__multi-value {
+  background-color: #007bff;
+}
+.react-select__multi-value__label {
+  color: white;
+}
+.react-select__multi-value__remove:hover {
+  background-color: #0056b3;
+  color: white;
+}

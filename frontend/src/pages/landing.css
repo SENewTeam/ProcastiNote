@@ -1,0 +1,39 @@
+.landing-container {
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+.main-content {
+  padding-top: 50px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.info-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.benefits-container {
+  background-color: #ffffff;
+  padding: 50px 0;
+}
+
+.center-div {
+  text-align: center;
+  margin-top: 20px;
+}
