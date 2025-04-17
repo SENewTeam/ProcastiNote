@@ -53,4 +53,9 @@ Researcher's Hive is a research tool designed to help PhD students and researche
 5. Run the backend server
     bash
     python3 manage.py runserver
+### nginx 
+1. Install nginx
+2. Update nginx.conf
+3. run nginx.exe -t to test the configuration
+4. run nginx.exe -s reload to reload 
     
