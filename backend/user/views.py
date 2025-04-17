@@ -11,6 +11,26 @@ from paperInfo.utils import paperInfo
 from comments.utils import commentInfo
 from datetime import datetime
 
+from django.db.models import Q
+from django.contrib.auth import get_user_model
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
+from .serializers import *
+from paperInfo.utils import paperInfo
+from paperInfo.models import PaperInfo
+from paperInfo.specifications import (
+    PaperNameSpecification,
+    AuthorSpecification,
+    VenueTypeSpecification,
+    YearSpecification,
+)
+
+
+User = get_user_model()
+
 
 @api_view(['POST'])
 def user_creation(request):
@@ -84,6 +104,107 @@ def showPapers(request, id):
         return Response(listOfPaper, status=status.HTTP_200_OK)
     else :
         return Response({"message": f"Papers : "}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def showAllPapers(request, id):
+    """
+    GET /api/user/<id>/papers/all
+    Returns *all* papers the user has read, full metadata, sorted by access time desc.
+    """
+    if str(id) != str(request.user.id):
+        return Response({"error": "Unauthorized"}, status=status.HTTP_403_FORBIDDEN)
+
+    try:
+        user = User.objects.get(id=id)
+    except User.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    papersAT = user.papersAccessTime or {}
+    # sort descending
+    sorted_pids = sorted(
+        papersAT.items(),
+        key=lambda kv: kv[1],
+        reverse=True
+    )
+
+    all_papers = []
+    for paper_id, _ in sorted_pids:
+        info = paperInfo(paper_id)
+        all_papers.append({
+            "paperId":   info["paperId"],
+            "title":     info["title"],
+            "abstract":  info["abstract"],
+            "authors":   info["authors"],
+            "year":      info["year"],
+            "venue_type":info["venue_type"],
+            "venue":     info.get("venue", ""),
+            "venue_link":info.get("venue_link", ""),
+        })
+
+    return Response(all_papers, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def filterPapers(request, id):
+    if str(id) != str(request.user.id):
+        return Response({"error": "Unauthorized"}, status=status.HTTP_403_FORBIDDEN)
+
+    try:
+        user = User.objects.get(id=id)
+    except User.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    # get all IDs the user has read
+    pids = list((user.papersAccessTime or {}).keys())
+
+    # pull comma‑lists from query params
+    qp = request.query_params
+    specs = []
+
+    # helper that splits and strips, skipping empties
+    def split_list(param):
+        return [v.strip() for v in qp.get(param, "").split(",") if v.strip()]
+
+    for name in split_list("paperName"):
+        specs.append(PaperNameSpecification(name))
+    for author in split_list("author"):
+        specs.append(AuthorSpecification(author))
+    for vt in split_list("venueType"):
+        specs.append(VenueTypeSpecification(vt))
+    for y in split_list("year"):
+        try:
+            specs.append(YearSpecification(int(y)))
+        except ValueError:
+            pass
+
+    # combine into one OR‑Q
+    if specs:
+        q = specs[0].as_q()
+        for s in specs[1:]:
+            q = q | s.as_q()
+    else:
+        q = Q()  # no filtering
+
+    # one DB fetch
+    queryset = PaperInfo.objects.filter(paperId__in=pids).filter(q)
+
+    data = [
+        {
+            "paperId":    p.paperId,
+            "title":      p.title,
+            "abstract":   p.abstract,
+            "authors":    p.authors,
+            "year":       p.year,
+            "venue_type": p.venue_type,
+            "venue":      p.venue,
+            "venue_link": p.venue_link,
+        }
+        for p in queryset
+    ]
+
+    return Response(data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

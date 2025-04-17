@@ -11,5 +11,7 @@ urlpatterns = [
     path('info', views.user_info),
     path('recommendations', views.recommendations),
     path('<int:id>/papers/<paper_id>/', views.addPaper),
-    path('<id>/papers', views.showPapers)
+    path('<int:id>/papers', views.showPapers),
+    path('<int:id>/papers/all', views.showAllPapers),
+    path('<int:id>/papers/filtered', views.filterPapers),
 ]
