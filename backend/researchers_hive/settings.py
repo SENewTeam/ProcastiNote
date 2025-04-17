@@ -65,6 +65,7 @@ MIDDLEWARE = [
 ]
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:5173',  # Add your frontend origin here
+    'http://localhost'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
